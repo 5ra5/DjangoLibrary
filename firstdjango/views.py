@@ -18,5 +18,6 @@ def view_single_book(request, bookid):
     return render(request, 'single_book.html', {'book' : single_book})
 
 def view_books_by_year(request, bookyear):
-    books = get_object_or_404(Book, year=bookyear)
-    return render(request, 'books_by_year.html', {'year' : books})
+    filtered_books = Book.objects.filter(year=bookyear)
+    for book in filtered_books:
+        return render(request, 'books_by_year.html', {'year' : book})
