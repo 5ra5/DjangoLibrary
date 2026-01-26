@@ -1,16 +1,14 @@
 {% extends 'base.html' %}
 {% block title %}
-    <h3>All books written in this year</h3>
+    <h3><p> Books published in this year </p></h3>
 {% endblock %}
 
 {% block content %}
-    {% for b in books_by_year %}
-        <div>
-            <p> {{b.title}} </p>
-            <p> {{b.author}} </p>
-            <p> {{b.year}} </p>
-            <p> {{b.price}} </p>
-            <p> {{b.synopsis}} </p>
-        </div>
-    {% endfor %}
+    <div>
+        <p> {{year.title}} </p>
+        <p> {{year.author}} </p>
+        <p> {{year.year}} </p>
+        <p> {{year.price}} </p>
+        <p> {{year.synopsis}} </p>
+    </div>
 {% endblock %}
