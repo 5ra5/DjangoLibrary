@@ -6,11 +6,13 @@
 {% block content %}
     {% for b in books %}
         <div>
-            <p> {{b.title}} </p>
-            <p> {{b.author}} </p>
-            <p> {{b.year}} </p>
-            <p> {{b.price}} </p>
+            <p>Title: <b> {{b.title}} </b></p>
+            <p>Author: {{b.author}} </p>
+            <p>Year: {{b.year}} </p>
+            <p>Category: {{b.category}} </p>
+            <p>Price: {{b.price}} euros</p>
             <p> {{b.synopsis}} </p>
+            <br></br>
         </div>
     {% endfor %}
 {% endblock %}
