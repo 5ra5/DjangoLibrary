@@ -13,12 +13,6 @@ CATEGORY_CHOICES = [
     ("historical", "Historical Fiction")
 ]
 
-class Author(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    birth_date = models.DateField()
-    genre = models.CharField(max_length=100, default='Fiction')
-
 class Book(models.Model):
     id = models.AutoField(primary_key=True)
     year = models.IntegerField()
