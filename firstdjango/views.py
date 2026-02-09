@@ -1,7 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 from django.shortcuts import get_object_or_404
+from .forms import BookForm
 
 def index(request):
     return render(request, 'index.html')
@@ -28,3 +29,14 @@ def view_books_by_category(request, bookcategory):
 def view_books_by_year_and_category(request, bookyear, bookcategory):
     category_year = Book.objects.all().filter(category=bookcategory, year=bookyear)
     return render(request, 'all_books.html', {'books' : category_year})
+
+def add_book(request):    
+    if request.method == 'POST':  
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('all_books')  # Use your book list URL name
+    else:
+        form = BookForm()
+
+    return render(request, 'add_book.html', {'form': form})
