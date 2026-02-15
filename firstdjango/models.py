@@ -13,10 +13,19 @@ CATEGORY_CHOICES = [
     ("historical", "Historical Fiction")
 ]
 
+class Author(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    birth_year = models.IntegerField(default=2000)
+    country = models.CharField(max_length=50, default="country")
+
+    def __str__(self):
+        return self.name
+
 class Book(models.Model):
     id = models.AutoField(primary_key=True)
     year = models.IntegerField()
-    author = models.CharField(max_length=200)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     title = models.CharField(max_length=200)
     synopsis = models.TextField()
