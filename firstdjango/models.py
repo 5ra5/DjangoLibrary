@@ -1,6 +1,5 @@
 from django.db import models
-
-# Create your models here.
+from django.contrib.auth.models import User
 
 CATEGORY_CHOICES = [
     ("fiction", "Fiction"),
@@ -18,6 +17,7 @@ class Author(models.Model):
     name = models.CharField(max_length=100)
     birth_year = models.IntegerField(default=2000)
     country = models.CharField(max_length=50, default="country")
+    added_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name
@@ -34,3 +34,7 @@ class Book(models.Model):
         choices=CATEGORY_CHOICES,
         default="Fiction"
     )
+    added_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.title

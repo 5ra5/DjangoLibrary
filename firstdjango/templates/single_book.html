@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
-{% block title %}
-    <h3>{{book.title}}</h3>
-{% endblock %}
 
 {% block content %}
+<h1>{{ book.title }}</h1>
+<p>Author: {{ book.author }}</p>
+<p>Year: {{ book.year }}</p>
+<p>Price: €{{ book.price }}</p>
+<p>{{ book.synopsis }}</p>
+
+{% if book.added_by %}
+    <p><small>Added by {{ book.added_by.username }}</small></p>
+{% endif %}
+
+{% if user.is_staff or book.added_by == user %}
     <div>
-        <p>Author: {{book.author}} </p>
-        <p>Year: {{book.year}} </p>
-        <p>Category: {{book.category}}</p>
-        <p>Price: {{book.price}} euros</p>
-        <p> {{book.synopsis}} </p>
+        <a href="{% url 'edit_book' book.id %}">Edit</a>
+        <a href="{% url 'delete_book' book.id %}" style="color: red;">Delete</a>
     </div>
+{% endif %}
+
+<a href="{% url 'all_books' %}">Back to all books</a>
 {% endblock %}

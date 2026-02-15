@@ -1,17 +1,21 @@
 {% extends 'base.html' %}
-{% block title %}
-    <h3>All books</h3>
-{% endblock %}
-
 {% block content %}
+    <h1>All books</h1>
+
+{% if user.is_staff %}
+    <a href="{% url 'add_book' %}">Add a New Book</a>
+{% endif %}
     {% for b in books %}
         <div>
             <p>Title: <b> {{b.title}} </b></p>
             <p>Author: {{b.author}} </p>
             <p>Year: {{b.year}} </p>
             <p>Category: {{b.category}} </p>
-            <p>Price: {{b.price}} euros</p>
+            <p>Price: €{{b.price}}</p>
             <p> {{b.synopsis}} </p>
+            {% if b.added_by %}
+                <p><small>Added by {{ b.added_by.username }}</small></p>
+            {% endif %}
             <br></br>
         </div>
     {% endfor %}
