@@ -1,8 +1,9 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
-from django.shortcuts import get_object_or_404
-from .forms import BookForm
+from .forms import BookForm, AuthorForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, 'index.html')
@@ -30,13 +31,40 @@ def view_books_by_year_and_category(request, bookyear, bookcategory):
     category_year = Book.objects.all().filter(category=bookcategory, year=bookyear)
     return render(request, 'all_books.html', {'books' : category_year})
 
+def view_all_authors(request):
+    all_authors = Author.objects.all()
+    return render(request, 'all_authors.html', {'authors' : all_authors})
+
+@login_required
 def add_book(request):    
     if request.method == 'POST':  
         form = BookForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('all_books')  # Use your book list URL name
+            return redirect('all_books')
     else:
         form = BookForm()
 
     return render(request, 'add_book.html', {'form': form})
+
+def add_author(request):
+    if request.method == 'POST':
+        form = AuthorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('all_authors')
+    else:
+        form = AuthorForm()
+
+    return render(request, 'add_author.html', {'form' : form})
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'registration/register.html', {'form' : form})

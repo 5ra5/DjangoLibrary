@@ -116,3 +116,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Where to redirect after successful login
+LOGIN_REDIRECT_URL = 'all_books'
+
+# Where to redirect after logout
+LOGOUT_REDIRECT_URL = 'all_books'
+
+# Where the login page is located
+LOGIN_URL = 'login'

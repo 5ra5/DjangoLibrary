@@ -1,11 +1,30 @@
+<!DOCTYPE html>
 <html>
-    <head>
+<head>
+    <title>
         {% block title %}
             Library
         {% endblock %}
-    </head>
-    <body>
-        {% block content %}
-        {% endblock %}
-    </body>
+    </title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'all_books' %}">Books</a>
+        <br></br>
+
+        {% if user.is_authenticated %}
+            <span>Hello, {{ user.username }}!</span>
+            <form method="post" action="{% url 'logout' %}" style="display; inline;">
+                {% csrf_token %}
+                <button type="submit">Log Out</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Log In</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+</body>
 </html>
